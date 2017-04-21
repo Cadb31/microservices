@@ -63,17 +63,13 @@ public class ReciboDaoImpl implements ReciboDao {
 			LinkedHashMap<String , String> c = olJson.get(i);
 			cabeceraList.add(new CabeceraRecibo(c.get("nombreCabecera"), c.get("descripcionCabecera")));
 		}
-
+		
 		List<Recibo> recibosList = new ArrayList<Recibo>();				
 		for (int i = 0; i < olJson.size(); i++) {
 			LinkedHashMap<String , String> c = olJson.get(i);
-			recibosList.add(new Recibo(c.get("ra"), c.get("importe"), c.get("mc"), c.get("fecVcto"), c.get("fEfecto"), c.get("situacion"), c.get("fSituacion")));
+			recibosList.add(new Recibo(c.get("ra"), c.get("importe"), c.get("mc"), c.get("fecVcto"), c.get("fEfecto"), c.get("situacion"), c.get("fSituacion")));			
 		}
-		
-		ReciboCabecera reciboCabecera = new ReciboCabecera();
-		reciboCabecera.setCabeceraList(cabeceraList);
-		reciboCabecera.setRecibos(recibosList);
-		
-		return reciboCabecera;
+
+		return new ReciboCabecera(cabeceraList, recibosList);
 	}
 }

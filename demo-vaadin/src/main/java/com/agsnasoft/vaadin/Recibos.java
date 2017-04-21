@@ -10,6 +10,7 @@ import org.vaadin.viritin.layouts.MVerticalLayout;
 
 import com.agsnasoft.model.CabeceraRecibo;
 import com.agsnasoft.model.Recibo;
+import com.agsnasoft.model.ReciboCabecera;
 import com.agsnasoft.model.ReciboDao;
 import com.agsnasoft.model.ReciboDaoImpl;
 import com.vaadin.annotations.Theme;
@@ -122,6 +123,7 @@ public class Recibos extends UI {
 		rowCol6.setSizeFull();
 		
 		loadCabecera();
+		//loadJson();
 		setContent(new MVerticalLayout(title, headerLayout, rowCol6, recibosList));
 		loadRecibos();
 	}
@@ -168,60 +170,65 @@ public class Recibos extends UI {
     
     private void loadCabecera(){
     	List<CabeceraRecibo> cabeceraList = reciboDao.getAllCabecera();
-
-    	for (int i = 0; i < cabeceraList.size(); i++){
-    		//CabeceraRecibo cabecera = (CabeceraRecibo) reciboDao.getAllCabecera().get(i);
-    	    CabeceraRecibo cabecera = cabeceraList.get(i);
-    	
-			if(cabecera.getNombreCabecera().equals(ramo.getValue())){
-				ramoDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(mutualista.getValue())){
-				mutualistaDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(oasegurado.getValue())){
-				oaseguradoDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(modalidad.getValue())){
-				modalidadDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(dirPago.getValue())){
-				dirPagoDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(nPoliza.getValue())){
-				nPolizaDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(nif.getValue())){
-				nifDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(fecEfecto.getValue())){
-				fecEfectoDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(franquicia.getValue())){
-				franquiciaDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(vencimiento.getValue())){
-				vencimientoDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-			
-			if(cabecera.getNombreCabecera().equals(ccc.getValue())){
-				cccDecription.setCaption(cabecera.getDescripcionCabecera());
-			}
-		}
+    	drawCabecera(cabeceraList);    	
     }    
     
     private void loadJson(){
-    	
-    	
+    	ReciboCabecera reciboCabecera = reciboDao.getReciboCabecera();
+    	List<CabeceraRecibo> cabeceraList = reciboCabecera.getCabeceraList(); 
+    	drawCabecera(cabeceraList);
+    	recibosList.setRows(reciboCabecera.getRecibos());    	
     }
 
+	private void drawCabecera(List<CabeceraRecibo> cabeceraList) {
+
+		for (CabeceraRecibo cabecera : cabeceraList) {
+			
+			if (cabecera.getNombreCabecera().equals(ramo.getValue())) {
+				ramoDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(mutualista.getValue())) {
+				mutualistaDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(oasegurado.getValue())) {
+				oaseguradoDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(modalidad.getValue())) {
+				modalidadDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(dirPago.getValue())) {
+				dirPagoDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(nPoliza.getValue())) {
+				nPolizaDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(nif.getValue())) {
+				nifDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(fecEfecto.getValue())) {
+				fecEfectoDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(franquicia.getValue())) {
+				franquiciaDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(vencimiento.getValue())) {
+				vencimientoDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+
+			if (cabecera.getNombreCabecera().equals(ccc.getValue())) {
+				cccDecription.setCaption(cabecera.getDescripcionCabecera());
+			}
+		}
+    	
+    }
+    
 }

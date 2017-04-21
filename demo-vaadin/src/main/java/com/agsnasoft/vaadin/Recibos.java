@@ -218,4 +218,10 @@ public class Recibos extends UI {
 			}
 		}
     }    
+    
+    private void loadJson(){
+    	
+    	
+    }
+
 }

@@ -58,4 +58,34 @@ public class ReciboDaoImpl implements ReciboDao {
 		
 		return cabeceraList;
 	}
+
+	@Override
+	public OpenLegacy getOpenLegacyJson() {
+		
+		OpenLegacyJson olJson = new OpenLegacyJson();
+
+		olJson.setFocusField("");
+		olJson.setPcCommand("");
+		olJson.setActions("");
+		olJson.setMutualista("1.119.171");
+		olJson.setProf("M?dico/a");
+		olJson.setLocalidad(28223);
+		olJson.setNiF("00279801Y");
+		olJson.setTlfn("915.188.735");
+		olJson.setF3("Fin");
+		olJson.setF7("Alta/Baja 41");
+		olJson.setF10("Nueva P?liza");
+		olJson.setTipo("Lic. Sanitar.");
+
+		List<ReciboJson> recibos = new ArrayList<>();
+		recibos.add(new ReciboJson("", "", "11", "9-03-2011", "9-03-2011", "P", "TRAMONTANA 2. 4?D", "110.040.254", "A", ""));
+		recibos.add(new ReciboJson("", "", "30", "5-08-2007", "6-08-2006", "03", "M 5114FL-YAMAHA 250-SR", "300.335.033", "A", "40"));
+		recibos.add(new ReciboJson("", "", "52", "27-01-2013", "27-01-2013", "6M", "--  EL  MUTUALISTA   --", "520.003.370", "A", ""));
+
+		olJson.setConsultas2Records(recibos);
+		
+		OpenLegacy openLegacy = new OpenLegacy(olJson);
+		
+		return openLegacy;
+	}
 }

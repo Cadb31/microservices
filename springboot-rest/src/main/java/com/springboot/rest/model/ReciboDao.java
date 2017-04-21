@@ -8,4 +8,6 @@ public interface ReciboDao {
 	
 	public List<Recibo> getRecibosAll();
 
+	public OpenLegacy getOpenLegacyJson();
+	
 }

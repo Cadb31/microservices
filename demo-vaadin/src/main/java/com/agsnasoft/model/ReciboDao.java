@@ -8,4 +8,6 @@ public interface ReciboDao {
 	
 	public List<Recibo> getAll();
 
+	public ReciboCabecera getReciboCabecera();
+	
 }

@@ -36,8 +36,8 @@ public class MainUI extends UI {
     EventBus.UIEventBus eventBus;
     
     private MTable<Person> list = new MTable<>(Person.class)
-            .withProperties("id", "name", "email")
-            .withColumnHeaders("id", "Name", "Email")
+            .withProperties("id", "name", "email", "phoneNumber")
+            .withColumnHeaders("id", "Name", "Email", "Telefono")
             .setSortableProperties("name", "email")
             .withFullWidth();
     
@@ -47,20 +47,22 @@ public class MainUI extends UI {
     private Button edit = new MButton(FontAwesome.PENCIL_SQUARE_O, this::edit);
     private Button delete = new ConfirmButton(FontAwesome.TRASH_O,
             "Are you sure you want to delete the entry?", this::remove);
+	private Button nuevaFuncion = new MButton(FontAwesome.ANDROID, this::nuevaFuncion);
 
     public MainUI(PersonRepository r, PersonForm f, EventBus.UIEventBus b) {
         this.repo = r;
         this.personForm = f;
         this.eventBus = b;
+        nuevaFuncion.setEnabled(false);
     }
     
     @Override
     protected void init(VaadinRequest request) {
-        DisclosurePanel aboutBox = new DisclosurePanel("Spring Boot JPA CRUD example with Vaadin UI", new RichText().withMarkDownResource("/welcome.md"));
+        DisclosurePanel aboutBox = new DisclosurePanel("Spring Boot JPA CRUD with Vaadin UI", new RichText().withMarkDownResource("/welcome.md"));
         setContent(
                 new MVerticalLayout(
                         aboutBox,
-                        new MHorizontalLayout(filterByName, addNew, edit, delete),
+                        new MHorizontalLayout(filterByName, addNew, edit, delete, nuevaFuncion),
                         list
                 ).expand(list)
         );
@@ -76,9 +78,18 @@ public class MainUI extends UI {
     }
     
     protected void adjustActionButtonState() {
-        boolean hasSelection = list.getValue() != null;
+        boolean hasSelection = list.getValue() != null;        
         edit.setEnabled(hasSelection);
         delete.setEnabled(hasSelection);
+        
+        if(hasSelection){
+        Person p = list.getValue();
+        	if(p.getId() == 5 || p.getId() == 10 || p.getId() == 15){
+        		nuevaFuncion.setEnabled(hasSelection);
+        	}else{
+        		nuevaFuncion.setEnabled(false);
+        	}
+        }        
     }
     
     static final int PAGESIZE = 45;
@@ -133,11 +144,15 @@ public class MainUI extends UI {
         listEntities();
     }
     
+    public void nuevaFuncion(ClickEvent e) {        
+        personForm.openInModalPopup();
+    }
+    
     protected void edit(final Person phoneBookEntry) {
         personForm.setEntity(phoneBookEntry);
         personForm.openInModalPopup();
     }
-
+    
     @EventBusListenerMethod(scope = EventScope.UI)
     public void onPersonModified(PersonModifiedEvent event) {
         listEntities();
